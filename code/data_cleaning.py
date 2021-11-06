@@ -2,67 +2,137 @@ import pandas as pd
 import numpy as np
 import os
 import glob
+pd.options.mode.chained_assignment = None  # default='warn'
 
-base_dir = r'./data_in/'
+
+absolutepath = os.path.abspath(__file__)
+fileDirectory = os.path.dirname(absolutepath)
+parentDirectory = os.path.dirname(fileDirectory)
+
+base_dir = os.path.join(parentDirectory, 'data_in') 
 
 # directory of csv files
-data_in = glob.glob(os.path.join(base_dir,'*.csv'))
+data_in = glob.glob(os.path.join(base_dir, '*.csv'))
 
 # selected columns from data input
-columns = ['Area Code','Area','Element Code','Element','Item Code','Item','Year','Unit','Value']
+columns = ['Area Code (FAO)', 'Area', 'Element Code',
+           'Element', 'Item Code', 'Item', 'Year', 'Unit', 'Value']
+renamed_columns = ['Area_Code', 'Area', 'Element_Code',
+                   'Element', 'Item_Code', 'Item', 'Year', 'Unit', 'Value']
 
 # read and union all the data inputs
 df = pd.DataFrame()
 for file in data_in:
     data = pd.read_csv(file)
     data = data[columns]
-    df = pd.concat([df,data],ignore_index=True)
+    df = pd.concat([df, data], ignore_index=True)
 
 
-# df = df.groupby([col for col in columns if col != 'Value']).agg({'Value':'sum'}).reset_index()
+# rename df
+df.columns = renamed_columns
 
-# trim element column
-df['Element'].replace({' \(kcal/capita/day\)':'',' \(g/capita/day\)':''}, regex=True, inplace=True)
+# Dictionary of each element and related information
+element_dict = {
+    'food_energy': {'fao_ele_code': 664, 'element_code': 100,
+                    'element_name': 'Food Supply Energy', 'unit': 'kcal/capita/day'},
+    'food_quant': {'element_code': 110,
+                   'element_name': 'Food Supply Energy', 'unit': 'g/capita/day'},
+    'protein_energy': {'element_code': 200,
+                       'element_name': 'Protein Supply Energy', 'unit': 'kcal/capita/day'},
+    'protein_quant': {'fao_ele_code': 674, 'element_code': 210,
+                      'element_name': 'Protein Supply Energy', 'unit': 'g/capita/day'},
+    'fat_energy': {'element_code': 300,
+                   'element_name': 'Fat Supply Energy', 'unit': 'kcal/capita/day'},
+    'fat_quant': {'fao_ele_code': 684, 'element_code': 310,
+                  'element_name': 'Fat Supply Energy', 'unit': 'g/capita/day'},
+    'carbs_energy': {'element_code': 400,
+                     'element_name': 'Carbs Supply Energy', 'unit': 'kcal/capita/day'},
+    'carbs_quant': {'element_code': 410,
+                    'element_name': 'Carbs Supply Energy', 'unit': 'g/capita/day'}
+}
 
-# calculate daily kcal supply of protein , which is equal daily protein quantity * 4
-pro_kcal = df[df['Element']=='Protein supply quantity'].reset_index(drop = True)
-pro_kcal['Element'] = 'Protein supply'
-pro_kcal['Unit'] = 'kcal/capita/day'
-pro_kcal['Value'] = pro_kcal['Value']*4
+# Function that takes data input and returns data output which complies to the naming convention defined in element_dict
+def Revised(input, element_name):
+    selected_dict = element_dict[element_name]
+    output = input
+    output['Element'] = selected_dict['element_name']
+    output['Element_Code'] = selected_dict['element_code']
+    output['Unit'] = selected_dict['unit']
+    return output
 
-# calculate daily kcal supply of fat , which is equal daily fat quantity * 9
-fat_kcal = df[df['Element']=='Fat supply quantity'].reset_index(drop = True)
-fat_kcal['Element'] = 'Fat supply'
-fat_kcal['Unit'] = 'kcal/capita/day'
-fat_kcal['Value'] = fat_kcal['Value']*9
+# Function that extracts the existing data provided by FAO Stats (food energy, protein quant and fat quant) and returns the clean data output complied to element_dict
+# Posible element_name variables of this function include food_energy, pretoin_quant and fat_quant
+def RevisedRaw(element_name):
+    selected_dict = element_dict[element_name]
+    fao_ele_code = selected_dict['fao_ele_code']
+    input = df[df['Element_Code'] == fao_ele_code].reset_index(drop=True)
+    output = Revised(input, element_name)
+    return output
 
-total_kcal = df[df['Element']=='Food supply'].reset_index(drop = True)
+# Convert protein and fat energy into protein and fat quant based on defined formula
+def EnergyFromQuant(element_name):
+    selected_dict = element_dict[element_name]
+    if element_name == 'protein_energy':
+        input = RevisedRaw('protein_quant')
+        input['Value'] = input['Value']*4
+    elif element_name == 'fat_energy':
+        input = RevisedRaw('fat_quant')
+        input['Value'] = input['Value']*9
+    output = input
+    output['Element'] = selected_dict['element_name']
+    output['Element_Code'] = selected_dict['element_code']
+    output['Unit'] = selected_dict['unit']
+    return output
 
-temp = pd.concat([total_kcal,pro_kcal,fat_kcal],ignore_index=True)
-temp = pd.pivot_table(temp, index=['Area','Item Code','Item','Year','Unit'],columns='Element',values='Value',aggfunc=np.sum).reset_index()
+# Return clean data frame for each element input
+def ElementDataFrame(element_name):
+    # convert the data from the raw fao data source
+    if element_name in ('food_energy', 'protein_quant', 'fat_quant'):
+        return RevisedRaw(element_name)
+    elif element_name in ('protein_energy', 'fat_energy'):
+        return EnergyFromQuant(element_name)
 
-# calculate carbs supply by sucstracting daily food supply by protein supply and fat supply
-temp['Carbs supply'] = temp['Food supply']-temp['Protein supply']-temp['Fat supply']
-temp['Carbs supply quantity'] = temp['Carbs supply']/4
+# From the raw data provided by FAO Stats and further calculations, we can create the following data frames
+food_energy = ElementDataFrame('food_energy')
+protein_energy = ElementDataFrame('protein_energy')
+fat_energy = ElementDataFrame('fat_energy')
+protein_quant = ElementDataFrame('protein_quant')
+fat_quant = ElementDataFrame('fat_quant')
 
-carbs_kcal = temp[temp.columns.difference(['Fat supply', 'Food supply', 'Protein supply','Carbs supply quantity'])]
-carbs_kcal['Element'] = 'Carbs supply'
-carbs_kcal.rename(columns={'Carbs supply':'Value'},inplace=True)
+# Next is to compute the missing dataframes which include food_quant, carbs_energy and carbs_quant
+energy = pd.concat([food_energy, protein_energy,
+                   fat_energy], ignore_index=True)
+energy_pivot = pd.pivot_table(energy, index=['Area_Code', 'Area', 'Item_Code', 'Item',
+                              'Year', 'Unit'], columns='Element', values='Value', aggfunc=np.sum).reset_index()
 
-carbs_quant  = temp[temp.columns.difference(['Fat supply', 'Food supply', 'Protein supply','Carbs supply'])]
-carbs_quant['Element'] = 'Carbs supply quantity'
-carbs_quant.rename(columns={'Carbs supply quantity':'Value'},inplace=True)
-carbs_quant['Unit'] = 'g/capita/day'
+# Calculate the missing fields based on defined formulas
+energy_pivot['Carbs Supply Energy'] = energy_pivot['Food Supply Energy'] - \
+    (energy_pivot['Protein Supply Energy']+energy_pivot['Fat Supply Energy'])
+energy_pivot['Carbs Supply Quantity'] = energy_pivot['Carbs Supply Energy']/4
+energy_pivot['Food Supply Quantity'] = energy_pivot['Protein Supply Energy'] / \
+    4+energy_pivot['Fat Supply Energy']/9+energy_pivot['Carbs Supply Energy']/4
 
-df = pd.concat([df, pro_kcal, fat_kcal, carbs_kcal, carbs_quant], ignore_index=True)
+# Create carbs_energy df
+carbs_energy = energy_pivot[energy_pivot.columns.difference(
+    ['Fat Supply Energy', 'Food Supply Energy', 'Protein Supply Energy', 'Carbs Supply Quantity', 'Food Supply Quantity'])]
+carbs_energy = Revised(carbs_energy, 'carbs_energy')
+carbs_energy.rename(columns={'Carbs Supply Energy': 'Value'}, inplace=True)
 
-df = df.rename(columns={'Item Code':'Item_Code'})
+# Create carbs_quant df
+carbs_quant = energy_pivot[energy_pivot.columns.difference(
+    ['Fat Supply Energy', 'Food Supply Energy', 'Protein Supply Energy', 'Carbs Supply Energy', 'Food Supply Quantity'])]
+carbs_quant = Revised(carbs_quant, 'carbs_quant')
+carbs_quant.rename(columns={'Carbs Supply Quantity': 'Value'}, inplace=True)
 
-print(df.head())
+# Create food_quant df
+food_quant = energy_pivot[energy_pivot.columns.difference(
+    ['Fat Supply Energy', 'Food Supply Energy', 'Protein Supply Energy', 'Carbs Supply Energy', 'Carbs Supply Quantity'])]
+food_quant = Revised(food_quant, 'food_quant')
+food_quant.rename(columns={'Food Supply Quantity': 'Value'}, inplace=True)
 
-# print(df[['Element','Unit']].drop_duplicates())
+energy = pd.concat([food_energy, protein_energy, fat_energy,
+                   carbs_energy], ignore_index=True)
+quantity = pd.concat(
+    [food_quant, protein_quant, fat_quant, carbs_quant], ignore_index=True)
 
-
-
-# # https://ourworldindata.org/diet-compositions
-
+df = pd.concat([energy, quantity], ignore_index=True)

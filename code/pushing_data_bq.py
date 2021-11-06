@@ -1,11 +1,16 @@
 # 1. Setting up
 from google.cloud import bigquery
+import os
 import data_cleaning
+
+absolutepath = os.path.abspath(__file__)
+fileDirectory = os.path.dirname(absolutepath)
 
 df = data_cleaning.df
 
 # 2. Downloading the data
-filename =  './code/may-eleventh-e207a3fd73f9.json' #BQ access key
+
+filename =  os.path.join(fileDirectory, 'may-eleventh-e207a3fd73f9.json')  #BQ access key
 bq_client = bigquery.Client.from_service_account_json(filename) 
 table_config = bigquery.job.LoadJobConfig(write_disposition='WRITE_TRUNCATE')
 table_config.autodetect = True
