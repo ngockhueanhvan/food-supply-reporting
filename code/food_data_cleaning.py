@@ -9,7 +9,7 @@ absolutepath = os.path.abspath(__file__)
 fileDirectory = os.path.dirname(absolutepath)
 parentDirectory = os.path.dirname(fileDirectory)
 
-base_dir = os.path.join(parentDirectory, 'data_in') 
+base_dir = os.path.join(parentDirectory, 'data_in/food_daily_consumption') 
 
 # directory of csv files
 data_in = glob.glob(os.path.join(base_dir, '*.csv'))
@@ -23,7 +23,7 @@ renamed_columns = ['Area_Code', 'Area', 'Element_Code',
 # read and union all the data inputs
 df = pd.DataFrame()
 for file in data_in:
-    data = pd.read_csv(file)
+    data = pd.read_csv(file,encoding='utf-8')
     data = data[columns]
     df = pd.concat([df, data], ignore_index=True)
 
@@ -36,19 +36,19 @@ element_dict = {
     'food_energy': {'fao_ele_code': 664, 'element_code': 100,
                     'element_name': 'Food Supply Energy', 'unit': 'kcal/capita/day'},
     'food_quant': {'element_code': 110,
-                   'element_name': 'Food Supply Energy', 'unit': 'g/capita/day'},
+                   'element_name': 'Food Supply Quantity', 'unit': 'g/capita/day'},
     'protein_energy': {'element_code': 200,
                        'element_name': 'Protein Supply Energy', 'unit': 'kcal/capita/day'},
     'protein_quant': {'fao_ele_code': 674, 'element_code': 210,
-                      'element_name': 'Protein Supply Energy', 'unit': 'g/capita/day'},
+                      'element_name': 'Protein Supply Quantity', 'unit': 'g/capita/day'},
     'fat_energy': {'element_code': 300,
                    'element_name': 'Fat Supply Energy', 'unit': 'kcal/capita/day'},
     'fat_quant': {'fao_ele_code': 684, 'element_code': 310,
-                  'element_name': 'Fat Supply Energy', 'unit': 'g/capita/day'},
+                  'element_name': 'Fat Supply Quantity', 'unit': 'g/capita/day'},
     'carbs_energy': {'element_code': 400,
                      'element_name': 'Carbs Supply Energy', 'unit': 'kcal/capita/day'},
     'carbs_quant': {'element_code': 410,
-                    'element_name': 'Carbs Supply Energy', 'unit': 'g/capita/day'}
+                    'element_name': 'Carbs Supply Quantity', 'unit': 'g/capita/day'}
 }
 
 # Function that takes data input and returns data output which complies to the naming convention defined in element_dict

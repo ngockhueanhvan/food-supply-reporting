@@ -1,12 +1,12 @@
 # 1. Setting up
 from google.cloud import bigquery
 import os
-import data_cleaning
+from country_data_cleaning import df
+from country_data_cleaning import country
+from country_data_cleaning import food
 
 absolutepath = os.path.abspath(__file__)
 fileDirectory = os.path.dirname(absolutepath)
-
-df = data_cleaning.df
 
 # 2. Downloading the data
 
@@ -18,6 +18,20 @@ table_config.autodetect = True
 
 
 # 3. Pushing the data back to BQ
-job = bq_client.load_table_from_dataframe(
-    df, 'may-eleventh.food_supply_reporting.fao_food_supply', job_config=table_config)
-job.result()  # Waits for table load to complete.
+
+# conbined table
+df_job = bq_client.load_table_from_dataframe(
+    df, 'may-eleventh.food_supply_reporting.food_supply_reporting', job_config=table_config)
+df_job.result()  # Waits for table load to complete.
+
+# clean country table
+country_job = bq_client.load_table_from_dataframe(
+    country, 'may-eleventh.food_supply_reporting.country_table', job_config=table_config
+)
+country_job.result()  # Waits for table load to complete.
+
+# clean food table
+food_job = bq_client.load_table_from_dataframe(
+    food, 'may-eleventh.food_supply_reporting.food_daily_consumption', job_config=table_config
+)
+food_job.result()  # Waits for table load to complete
