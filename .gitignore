@@ -131,3 +131,6 @@ dmypy.json
 
 # Credentials
 *.json
+
+# Tableau workbook
+/tableau_workbook

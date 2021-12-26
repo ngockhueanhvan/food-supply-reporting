@@ -45,4 +45,6 @@ country_unstats = {
 # rename the values based on above dict
 food['Area'].replace(country_unstats, inplace=True)
 
-df = pd.merge(left=food, right=country, left_on='Area', right_on='Area', how='left').reset_index()
+df = pd.merge(left=food, right=country, left_on='Area', right_on='Area', how='left').reset_index(drop=True)
+
+# df['Join'] = 'link' # this is to create sigmoid map curves https://www.flerlagetwins.com/2020/08/map-curves.html

@@ -1,12 +1,17 @@
 # 1. Setting up
 from google.cloud import bigquery
 import os
+import pandas as pd
 from country_data_cleaning import df
 from country_data_cleaning import country
 from country_data_cleaning import food
 
 absolutepath = os.path.abspath(__file__)
 fileDirectory = os.path.dirname(absolutepath)
+parentDirectory = os.path.dirname(fileDirectory)
+
+maps_dir = os.path.join(parentDirectory, 'data_in/tableau/maps.csv') # read map longs and lats file
+model_dir = os.path.join(parentDirectory, 'data_in/tableau/model.csv') # read sigmoid map curves file
 
 # 2. Downloading the data
 
@@ -35,3 +40,17 @@ food_job = bq_client.load_table_from_dataframe(
     food, 'may-eleventh.food_supply_reporting.food_daily_consumption', job_config=table_config
 )
 food_job.result()  # Waits for table load to complete
+
+# maps long and lats
+maps = pd.read_csv(maps_dir)
+maps_job = bq_client.load_table_from_dataframe(
+    maps, 'may-eleventh.food_supply_reporting.maps_long_lat', job_config=table_config
+)
+maps_job.result()  # Waits for table load to complete
+
+# sigmoid point model long and lats
+model = pd.read_csv(model_dir)
+model_job = bq_client.load_table_from_dataframe(
+    model, 'may-eleventh.food_supply_reporting.sigmoid_point_model', job_config=table_config
+)
+model_job.result()  # Waits for table load to complete

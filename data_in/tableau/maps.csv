@@ -1,0 +1,177 @@
+﻿Area,EndY_Latitude,EndX_Longitude,Join
+Afghanistan,34.023,65.5267,link
+Albania,40.654,20.076,link
+Algeria,28.6045,2.64,link
+Angola,-12.836,17.808,link
+Antigua and Barbuda,17.625,-61.786,link
+Argentina,-33.166,-64.31,link
+Armenia,40.56,44.449,link
+Australia,-24.578,133.582,link
+Austria,47.65,14.705,link
+Azerbaijan,40.46,47.883,link
+Bahamas,24.7032,-78.0455,link
+Bangladesh,24.598,90.1963,link
+Barbados,13.1898,-59.559,link
+Belarus,53.3292,27.9492,link
+Belgium,50.6745,4.4588,link
+Belize,17.108,-88.744,link
+Benin,10.478,2.274,link
+Bermuda,32.3019,-64.7737,link
+Bolivia (Plurinational State of),-16.71,-65.183,link
+Bosnia and Herzegovina,44.342,17.804,link
+Botswana,-22.126,23.662,link
+Brazil,-11.694,-48.978,link
+Brunei Darussalam,4.452,114.557,link
+Bulgaria,42.625,24.521,link
+Burkina Faso,12.673,-1.226,link
+Cabo Verde,15.416,-23.36,link
+Cambodia,12.69,104.444,link
+Cameroon,4.4,12.131,link
+Canada,59.2067,-111.1937,link
+Central African Republic,7.043,21.424,link
+Chad,15.981,18.781,link
+Chile,-23.176,-69.201,link
+China,35.1753,99.3877,link
+China  Macao Special Administrative Region,22.1404,113.5643,link
+China Hong Kong Special Administrative Region,22.4114,114.0599,link
+"China, mainland",35.1753,99.3877,link
+"China, Taiwan Province of",23.6091,120.8353,link
+Colombia,3.794,-73.606,link
+Congo,0.509,16.08,link
+Costa Rica,10.126,-84.075,link
+Côte d’Ivoire,7.497,-5.336,link
+Croatia,45.754,16.385,link
+Cuba,20.571,-76.456,link
+Cyprus,34.894,32.928,link
+Czechia,49.848,15.2812,link
+Democratic People's Republic of Korea,39.767,126.389,link
+Denmark,56.113,9.096,link
+Djibouti,11.41,42.165,link
+Dominica,15.4238,-61.3411,link
+Dominican Republic,19.01,-70.1685,link
+Ecuador,-1.151,-78.308,link
+Egypt,26.16,28.742,link
+El Salvador,13.848,-89.229,link
+Estonia,58.777,25.977,link
+Eswatini,-26.5203,31.4607,link
+Ethiopia,8.435,38.786,link
+Fiji,-17.7941,177.9783,link
+Finland,62.716,26.192,link
+France,46.656,2.543,link
+French Polynesia,-17.529,-149.53,link
+Gabon,-0.406,11.914,link
+Gambia,13.499,-14.641,link
+Georgia,42.05,43.576,link
+Germany,51.3819,9.9877,link
+Ghana,7.258,-1.062,link
+Greece,39.787,21.617,link
+Grenada,12.111,-61.6867,link
+Guatemala,15.124,-90.711,link
+Guinea,10.599,-10.907,link
+Guinea-Bissau,12.191,-14.475,link
+Guyana,5.17,-58.939,link
+Haiti,19.3175,-72.4205,link
+Honduras,14.881,-87.123,link
+Hungary,47.174,19.618,link
+Iceland,64.826,-18.417,link
+India,22.741,78.236,link
+Indonesia,-0.739,114.045,link
+Iran (Islamic Republic of),33.408,54.0418,link
+Iraq,33.545,43.278,link
+Ireland,53.214,-7.588,link
+Israel,30.992,34.834,link
+Italy,44.3713,11.1084,link
+Jamaica,18.163,-77.477,link
+Japan,35.962,137.855,link
+Jordan,30.681,36.279,link
+Kazakhstan,48.866,69.772,link
+Kenya,0.806,38.166,link
+Kiribati,2.048,-158.59,link
+Kuwait,29.3169,47.4272,link
+Kyrgyzstan,41.741,75.043,link
+Lao People's Democratic Republic,19.595,102.538,link
+Latvia,57.017,25.0173,link
+Lebanon,34.161,36.021,link
+Lesotho,-29.446,28.371,link
+Liberia,6.51,-9.33,link
+Lithuania,55.342,24.23,link
+Luxembourg,49.671,6.113,link
+Madagascar,-19.615,46.645,link
+Malawi,-13.2731,33.7428,link
+Malaysia,4.416,102.099,link
+Maldives,4.221,73.463,link
+Mali,18.211,-2.209,link
+Malta,35.9024,14.4137,link
+Mauritania,19.413,-10.6528,link
+Mauritius,-20.2529,57.5902,link
+Mexico,22.925,-101.68,link
+Mongolia,46.516,102.564,link
+Montenegro,42.857,19.096,link
+Morocco,31.129,-7.355,link
+Mozambique,-13.852,38.042,link
+Myanmar,21.841,96.05,link
+Namibia,-21.276,17.219,link
+Nepal,28.2114,83.5608,link
+Netherlands,52.1704,5.0102,link
+New Caledonia,-21.02,165.062,link
+New Zealand,-42.558,172.377,link
+Nicaragua,12.692,-85.03,link
+Niger,16.996,9.915,link
+Nigeria,9.3417,7.678,link
+North Macedonia,41.636,21.676,link
+Norway,61.3701,9.3031,link
+Oman,19.85,56.25,link
+Pakistan,28.1854,66.6429,link
+Panama,8.348,-81.005,link
+Papua New Guinea,-5.636,142.798,link
+Paraguay,-23.266,-58.409,link
+Peru,-12.664,-72.98,link
+Philippines,17.181,121.256,link
+Poland,52.442,19.72,link
+Portugal,40.957,-7.9373,link
+Republic of Korea,36.338,128.16,link
+Republic of Moldova,47.524,28.444,link
+Romania,45.933,25.119,link
+Russian Federation,64.736,104.062,link
+Rwanda,-1.887,29.904,link
+Saint Kitts and Nevis,17.147,-62.58,link
+Saint Lucia,13.909,-60.9776,link
+Saint Vincent and the Grenadines,13.2528,-61.1949,link
+Samoa,-13.6221,-172.439,link
+Sao Tome and Principe,0.216,6.595,link
+Saudi Arabia,24.191,44.32,link
+Senegal,15.044,-15.081,link
+Serbia,44.021,20.699,link
+Sierra Leone,8.677,-11.779,link
+Slovakia,48.8595,19.4434,link
+Slovenia,46.037,14.534,link
+Solomon Islands,-9.5987,160.1487,link
+South Africa,-31.7,23.441,link
+Spain,40.617,-3.388,link
+Sri Lanka,7.3,80.727,link
+Sudan,15.739,29.533,link
+Suriname,4.248,-55.848,link
+Sweden,66.2188,19,link
+Switzerland,46.7794,8.0329,link
+Tajikistan,38.367,72.597,link
+Thailand,15.688,100.845,link
+Timor-Leste,-8.856,125.556,link
+Togo,7.7,1.106,link
+Trinidad and Tobago,10.4435,-61.2604,link
+Tunisia,35.594,9.421,link
+Turkey,39.144,34.188,link
+Turkmenistan,39.584,59.597,link
+Uganda,1.9392,32.7415,link
+Ukraine,49.364,32.132,link
+United Arab Emirates,23.9299,53.9031,link
+United Kingdom of Great Britain and Northern Ireland,52.289,-1.259,link
+United Republic of Tanzania,-5.651,34.146,link
+United States of America,40.0792,-98.8164,link
+Uruguay,-32.948,-56.249,link
+Uzbekistan,41.757,63.958,link
+Vanuatu,-15.339,166.89,link
+Venezuela (Bolivarian Republic of),6.983,-64.588,link
+Viet Nam,21.75,105.373,link
+Yemen,15.569,47.793,link
+Zambia,-15.13,25.268,link
+Zimbabwe,-19.098,30.047,link

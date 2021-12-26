@@ -12,7 +12,7 @@ parentDirectory = os.path.dirname(fileDirectory)
 base_dir = os.path.join(parentDirectory, 'data_in/food_daily_consumption') 
 
 # directory of csv files
-data_in = glob.glob(os.path.join(base_dir, '*.csv'))
+data_in = glob.glob(os.path.join(base_dir, 'raw_data/*.csv'))
 
 # selected columns from data input
 columns = ['Area Code (FAO)', 'Area', 'Element Code',
@@ -23,13 +23,20 @@ renamed_columns = ['Area_Code', 'Area', 'Element_Code',
 # read and union all the data inputs
 df = pd.DataFrame()
 for file in data_in:
-    data = pd.read_csv(file,encoding='utf-8')
+    data = pd.read_csv(file,encoding='UTF-8')
     data = data[columns]
     df = pd.concat([df, data], ignore_index=True)
 
 
 # rename df
 df.columns = renamed_columns
+
+# add item_group column to df based on the lookup table
+# read the lookup table from location
+item_group_lookup = pd.read_csv('data_in/food_daily_consumption/Item_Group_Lookup.csv')
+item_group_lookup = item_group_lookup[['Item_Code','Item_Group']]
+# merge item_group
+df = pd.merge(left=df, right=item_group_lookup, left_on='Item_Code', right_on='Item_Code', how='left').reset_index(drop=True)
 
 # Dictionary of each element and related information
 element_dict = {
@@ -102,15 +109,17 @@ fat_quant = ElementDataFrame('fat_quant')
 # Next is to compute the missing dataframes which include food_quant, carbs_energy and carbs_quant
 energy = pd.concat([food_energy, protein_energy,
                    fat_energy], ignore_index=True)
-energy_pivot = pd.pivot_table(energy, index=['Area_Code', 'Area', 'Item_Code', 'Item',
+energy_pivot = pd.pivot_table(energy, index=['Area_Code', 'Area', 'Item_Code', 'Item', 'Item_Group',
                               'Year', 'Unit'], columns='Element', values='Value', aggfunc=np.sum).reset_index()
 
+# !!! Important! When substracting a number by a NULL value, the result will be NULL. Hence, we'd need to convert NULL to 0 first.
+energy_pivot = energy_pivot.fillna(0)
+
+
 # Calculate the missing fields based on defined formulas
-energy_pivot['Carbs Supply Energy'] = energy_pivot['Food Supply Energy'] - \
-    (energy_pivot['Protein Supply Energy']+energy_pivot['Fat Supply Energy'])
+energy_pivot['Carbs Supply Energy'] = energy_pivot['Food Supply Energy'] - (energy_pivot['Protein Supply Energy'] + energy_pivot['Fat Supply Energy'])
 energy_pivot['Carbs Supply Quantity'] = energy_pivot['Carbs Supply Energy']/4
-energy_pivot['Food Supply Quantity'] = energy_pivot['Protein Supply Energy'] / \
-    4+energy_pivot['Fat Supply Energy']/9+energy_pivot['Carbs Supply Energy']/4
+energy_pivot['Food Supply Quantity'] = energy_pivot['Protein Supply Energy']/4 + energy_pivot['Fat Supply Energy']/9 + energy_pivot['Carbs Supply Energy']/4
 
 # Create carbs_energy df
 carbs_energy = energy_pivot[energy_pivot.columns.difference(
@@ -135,4 +144,4 @@ energy = pd.concat([food_energy, protein_energy, fat_energy,
 quantity = pd.concat(
     [food_quant, protein_quant, fat_quant, carbs_quant], ignore_index=True)
 
-df = pd.concat([energy, quantity], ignore_index=True)
+df = pd.concat([energy, quantity], ignore_index=True).reset_index(drop=True)

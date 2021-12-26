@@ -1,0 +1,100 @@
+Item,Item_Code,Item_Group
+Wheat and products,2511,Plant-based
+Barley and products,2513,Plant-based
+Maize and products,2514,Plant-based
+Rye and products,2515,Plant-based
+Oats,2516,Plant-based
+Millet and products,2517,Plant-based
+Sorghum and products,2518,Plant-based
+"Cereals, Other",2520,Plant-based
+Potatoes and products,2531,Plant-based
+Cassava and products,2532,Plant-based
+Sweet potatoes,2533,Plant-based
+"Roots, Other",2534,Plant-based
+Yams,2535,Plant-based
+Sugar cane,2536,Plant-based
+Sugar beet,2537,Plant-based
+Sugar non-centrifugal,2541,Plant-based
+Sugar (Raw Equivalent),2542,Plant-based
+"Sweeteners, Other",2543,Plant-based
+Beans,2546,Plant-based
+Peas,2547,Plant-based
+"Pulses, Other and products",2549,Plant-based
+Nuts and products,2551,Plant-based
+Groundnuts,2552,Plant-based
+Soyabeans,2555,Plant-based
+Groundnuts (Shelled Eq),2556,Plant-based
+Sunflower seed,2557,Plant-based
+Rape and Mustardseed,2558,Plant-based
+Cottonseed,2559,Plant-based
+Coconuts - Incl Copra,2560,Plant-based
+Sesame seed,2561,Plant-based
+Palm kernels,2562,Plant-based
+Olives (including preserved),2563,Plant-based
+"Oilcrops, Other",2570,Plant-based
+Soyabean Oil,2571,Plant-based
+Groundnut Oil,2572,Plant-based
+Sunflowerseed Oil,2573,Plant-based
+Rape and Mustard Oil,2574,Plant-based
+Cottonseed Oil,2575,Plant-based
+Palmkernel Oil,2576,Plant-based
+Palm Oil,2577,Plant-based
+Coconut Oil,2578,Plant-based
+Sesameseed Oil,2579,Plant-based
+Olive Oil,2580,Plant-based
+Ricebran Oil,2581,Plant-based
+Maize Germ Oil,2582,Plant-based
+"Oilcrops Oil, Other",2586,Plant-based
+Tomatoes and products,2601,Plant-based
+Onions,2602,Plant-based
+"Vegetables, Other",2605,Plant-based
+"Oranges, Mandarines",2611,Plant-based
+"Lemons, Limes and products",2612,Plant-based
+Grapefruit and products,2613,Plant-based
+"Citrus, Other",2614,Plant-based
+Bananas,2615,Plant-based
+Plantains,2616,Plant-based
+Apples and products,2617,Plant-based
+Pineapples and products,2618,Plant-based
+Dates,2619,Plant-based
+Grapes and products (excl wine),2620,Plant-based
+"Fruits, Other",2625,Plant-based
+Coffee and products,2630,Plant-based
+Cocoa Beans and products,2633,Plant-based
+Tea (including mate),2635,Plant-based
+Pepper,2640,Plant-based
+Pimento,2641,Plant-based
+Cloves,2642,Plant-based
+"Spices, Other",2645,Plant-based
+Wine,2655,Plant-based
+Beer,2656,Plant-based
+"Beverages, Fermented",2657,Plant-based
+"Beverages, Alcoholic",2658,Plant-based
+Infant food,2680,Plant-based
+Bovine Meat,2731,Animal-based
+Mutton & Goat Meat,2732,Animal-based
+Pigmeat,2733,Animal-based
+Poultry Meat,2734,Animal-based
+"Meat, Other",2735,Animal-based
+"Offals, Edible",2736,Animal-based
+"Fats, Animals, Raw",2737,Animal-based
+"Butter, Ghee",2740,Animal-based
+Cream,2743,Animal-based
+Eggs,2744,Animal-based
+Honey,2745,Animal-based
+Freshwater Fish,2761,Animal-based
+Demersal Fish,2762,Animal-based
+Pelagic Fish,2763,Animal-based
+"Marine Fish, Other",2764,Animal-based
+Crustaceans,2765,Animal-based
+Cephalopods,2766,Animal-based
+"Molluscs, Other",2767,Animal-based
+"Meat, Aquatic Mammals",2768,Animal-based
+"Aquatic Animals, Others",2769,Animal-based
+Aquatic Plants,2775,Animal-based
+"Fish, Body Oil",2781,Animal-based
+"Fish, Liver Oil",2782,Animal-based
+Rice (Milled Equivalent),2805,Plant-based
+Rice and products,2807,Plant-based
+Milk - Excluding Butter,2848,Animal-based
+Miscellaneous,2899,Other
