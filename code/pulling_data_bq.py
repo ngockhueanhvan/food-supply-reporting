@@ -2,7 +2,7 @@ from google.oauth2 import service_account
 import pandas_gbq
 
 
-filename =  './code/may-eleventh-e207a3fd73f9.json'
+filename =  './code/may-eleventh-xxxxxxxxxx.json'
 credentials = service_account.Credentials.from_service_account_file(filename)
 
 query = """
