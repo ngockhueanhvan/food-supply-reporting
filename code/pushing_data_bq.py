@@ -16,7 +16,7 @@ model_dir = os.path.join(parentDirectory, 'data_in/tableau/model.csv') # read si
 # 2. Downloading the data
 
 filename = os.path.join(
-    fileDirectory, 'may-eleventh-e207a3fd73f9.json')  # BQ access key
+    fileDirectory, 'may-eleventh-xxxxxxxxxxxxx.json')  # BQ access key
 bq_client = bigquery.Client.from_service_account_json(filename)
 table_config = bigquery.job.LoadJobConfig(write_disposition='WRITE_TRUNCATE')
 table_config.autodetect = True
